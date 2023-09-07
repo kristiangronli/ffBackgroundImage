@@ -1,0 +1,9 @@
+{
+	"editor.fontSize": 14,
+	"window.zoomLevel": 1.1,
+	"editor.formatOnSave": false,
+	"css.validate": false,
+	"less.validate": false,
+	"scss.validate": false,
+	"stylelint.validate": [ "css", "scss" ]
+}
