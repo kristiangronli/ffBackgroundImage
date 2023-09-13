@@ -26,3 +26,12 @@ git commit -m "Initial commit"
 git remote add origin https://github.com/kristiangronli/<repository>.git
 
 git push -u origin master
+
+
+npm install
+
+npm run format
+npm run lint:js
+npm run lint:css
+npm run build
+npm run start
