@@ -1,24 +1,29 @@
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from '@wordpress/block-editor';
+//import { useBlockProps } from '@wordpress/block-editor';
 
-/**
- * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
- *
- * @return {WPElement} Element to render.
- */
-export default function save() {
-	return (
-		<p { ...useBlockProps.save() }>
-			{ 'Boilerplate – hello from the saved content!' }
-		</p>
-	);
+export default function save( { attributes } ) {
+	const { bilde, height, width, mycss } = attributes;
+
+	// Function to convert CSS string to object
+	const parseCSS = ( cssString ) => {
+		const cssObject = {};
+		const cssArray = cssString
+			.split( ';' )
+			.filter( ( style ) => style.trim() !== '' );
+		cssArray.forEach( ( style ) => {
+			const [ property, value ] = style.split( ':' );
+			if ( property && value ) {
+				cssObject[ property.trim() ] = value.trim();
+			}
+		} );
+		return cssObject;
+	};
+
+	const style = {
+		backgroundImage: `url(${ bilde })`,
+		...( height && { height: `${ height }` } ),
+		...( width && { width: `${ width }` } ),
+		...( mycss && parseCSS( mycss ) ),
+	};
+
+	return <div style={ style } className="image-background"></div>;
 }
